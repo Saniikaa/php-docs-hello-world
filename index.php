@@ -1,31 +1,5 @@
 <?php
-// Database configuration
-$server = getenv("DB_SERVER") ?: "localhost";
-$username = getenv("DB_USERNAME") ?: "root";
-$password = getenv("DB_PASSWORD") ?: "";
-$database = getenv("DB_DATABASE") ?: "elearning";
-
-// Connect to database
-$conn = new mysqli($server, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Create table if not exists
-$conn->query("CREATE TABLE IF NOT EXISTS courses (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    course_name VARCHAR(255) NOT NULL
-)");
-
-// Insert sample data if table is empty
-$conn->query("INSERT INTO courses (course_name) SELECT 'Mathematics' WHERE NOT EXISTS (SELECT * FROM courses LIMIT 1)");
-$conn->query("INSERT INTO courses (course_name) SELECT 'Physics' WHERE NOT EXISTS (SELECT * FROM courses WHERE course_name = 'Physics')");
-$conn->query("INSERT INTO courses (course_name) SELECT 'Computer Science' WHERE NOT EXISTS (SELECT * FROM courses WHERE course_name = 'Computer Science')");
-
-// Fetch courses
-$result = $conn->query("SELECT * FROM courses");
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -36,39 +10,108 @@ $result = $conn->query("SELECT * FROM courses");
     <title>Student Portal</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            margin: 20px;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #11998e, #38ef7d);
+            margin: 0;
+            padding: 0;
+            color: white;
         }
-        h1 {
+        .header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: auto;
+            margin-top: 30px;
+            text-align: center;
+        }
+        .card {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             color: #333;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
+        .btn {
+            background: #ff7f50;
+            color: white;
+            padding: 12px 18px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.3s ease;
         }
-        li {
-            background: #fff;
-            margin: 5px auto;
+        .btn:hover {
+            background: #ff5733;
+        }
+        .nav-bar {
+            background: rgba(0, 0, 0, 0.8);
             padding: 10px;
-            width: 50%;
-            border-radius: 5px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+            font-size: 18px;
+            padding: 10px;
+            transition: 0.3s;
+        }
+        .nav-bar a:hover {
+            color: #38ef7d;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to the Student Portal</h1>
-    <h2>Available Courses</h2>
-    <ul>
-        <?php while ($row = $result->fetch_assoc()): ?>
-            <li><?php echo htmlspecialchars($row['course_name']); ?></li>
-        <?php endwhile; ?>
-    </ul>
+
+    <div class="header">Student Portal</div>
+
+    <div class="nav-bar">
+        <a href="index.php">Home</a>
+        <a href="enrollments.php">Enrollments</a>
+        <a href="attendance.php">Attendance</a>
+        <a href="schedule.php">Schedule</a>
+        <a href="profile.php">Profile</a>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>Welcome to the Student Portal</h2>
+            <p>Manage your course enrollments, attendance, and schedules easily.</p>
+            <a href="enrollments.php" class="btn">Manage Enrollments</a>
+            <a href="attendance.php" class="btn">View Attendance</a>
+            <a href="schedule.php" class="btn">View Schedule</a>
+            <a href="profile.php" class="btn">View Profile</a>
+        </div>
+
+        <div class="card">
+            <h2>Latest Announcements</h2>
+            <p>📢 Exam schedules have been updated. Check the schedule for details.</p>
+            <p>📢 New courses are now available for enrollment.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; <?php echo date("Y"); ?> Student Portal | All Rights Reserved
+    </div>
+
 </body>
 </html>
 
-<?php
-$conn->close();
-?>
