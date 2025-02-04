@@ -11,10 +11,10 @@ session_start();
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to right, #11998e, #38ef7d);
+            background: linear-gradient(to right, #ff7e5f, #feb47b); /* Changed gradient to warm tones */
             margin: 0;
             padding: 0;
-            color: white;
+            color: #333;
         }
         .header {
             background: rgba(0, 0, 0, 0.7);
@@ -23,6 +23,7 @@ session_start();
             font-size: 28px;
             font-weight: bold;
             letter-spacing: 1px;
+            color: #feb47b; /* Changed to match the warm tone */
         }
         .container {
             width: 90%;
@@ -32,15 +33,15 @@ session_start();
             text-align: center;
         }
         .card {
-            background-color: white;
+            background-color: #ffe0b2; /* Soft, warm background */
             padding: 25px;
             margin-bottom: 20px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            color: #333;
+            color: #5d4037; /* Darker brown text color */
         }
         .btn {
-            background: #ff7f50;
+            background: #ff6f61; /* Coral color */
             color: white;
             padding: 12px 18px;
             margin: 10px;
@@ -52,7 +53,7 @@ session_start();
             transition: 0.3s ease;
         }
         .btn:hover {
-            background: #ff5733;
+            background: #d84315; /* Darker coral for hover */
         }
         .nav-bar {
             background: rgba(0, 0, 0, 0.8);
@@ -60,7 +61,7 @@ session_start();
             text-align: center;
         }
         .nav-bar a {
-            color: white;
+            color: #ffcc80; /* Light orange color */
             text-decoration: none;
             margin: 15px;
             font-size: 18px;
@@ -68,14 +69,14 @@ session_start();
             transition: 0.3s;
         }
         .nav-bar a:hover {
-            color: #38ef7d;
+            color: #ff7043; /* Slightly darker orange */
         }
         .footer {
             text-align: center;
             padding: 15px;
             margin-top: 20px;
             background: rgba(0, 0, 0, 0.8);
-            color: white;
+            color: #ffcc80; /* Match the nav link color */
         }
     </style>
 </head>
@@ -114,4 +115,3 @@ session_start();
 
 </body>
 </html>
-
